@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0 //EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fusiu.o2o.dao.ShopDao">
+    <!-- useGeneratedKeys
+        为 true 表明当数据添加成功时，通过 jdbc 获取主键当值，插入到传入的对象中，也就时 shop 中
+    -->
+    <insert id="insertShop" useGeneratedKeys="true" keyColumn="shop_id" keyProperty="shopId">
+      INSERT INTO
+      tb_shop(owner_id,area_id,shop_category_id,shop_name,shop_desc,shop_addr,
+      phone,shop_img,priority,create_time,last_edit_time,enable_status,advice)
+      VALUES
+      (#{ownwe.userId},#{area.areaId},#{shopCategory.shopCategoryId},#{shopName}
+      ,#{shopDesc},#{shopAddr},#{phone},#{shopImg},#{priority},#{create_time},#{lastEditTime},
+      #{enableStatus},#{advice})
+    </insert>
+</mapper>
