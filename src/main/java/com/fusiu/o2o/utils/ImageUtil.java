@@ -36,7 +36,7 @@ public class ImageUtil {
         return newFile;
     }
     /**
-     * 处理缩略图，并返回新生成图片的相对值路径
+     * 处理缩略图，并返回新生成图片的绝对路径
      * @param thumbnail 获取的文件名
      * @param targetAddr 子目录
      * @return 最终的图片保存路径
