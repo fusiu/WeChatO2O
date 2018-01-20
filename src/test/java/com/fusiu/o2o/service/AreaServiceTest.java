@@ -16,10 +16,7 @@ public class AreaServiceTest extends BaseTest {
 
     @Test
     public void AreaServiceTest() {
-
         List<Area> areaList = areaService.getAreaList();
         assertEquals("E栋", areaList.get(1).getAreaName());
-        System.out.println(String.format("***********  %s",areaList));
-
     }
 }
