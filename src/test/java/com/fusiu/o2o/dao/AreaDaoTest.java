@@ -1,5 +1,6 @@
 package com.fusiu.o2o.dao;
 
+import com.fusiu.o2o.BaseTest;
 import com.fusiu.o2o.entity.Area;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
