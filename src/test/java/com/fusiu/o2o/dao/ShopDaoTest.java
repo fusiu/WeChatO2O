@@ -16,6 +16,9 @@ public class ShopDaoTest extends BaseTest{
 
     @Autowired ShopDao shopDao;
 
+    /**
+     * 新增店铺测试
+     */
     @Test
     public void testInsertShop(){
         Shop shop = new Shop();
@@ -37,6 +40,31 @@ public class ShopDaoTest extends BaseTest{
         shop.setEnableStatus(1);
         shop.setAdvice("审核中");
         int i = shopDao.insertShop(shop);
+        assertEquals(1,i);
+    }
+
+    @Test
+    public void testUpdateShop(){
+        Shop shop = new Shop();
+        PersonInfo owner = new PersonInfo();
+        Area area = new Area();
+        ShopCategory shopCategory = new ShopCategory();
+        owner.setUserId(1L);
+        area.setAreaId(1);
+        shopCategory.setShopCategoryId(1L);
+        shop.setOwner(owner);
+        shop.setShopCategory(shopCategory);
+        shop.setArea(area);
+        shop.setShopName("智慧园伊利专卖店");
+        shop.setShopDesc("伊利合成奶，喝了让您牛气冲天");
+        shop.setShopAddr("智慧园 E 栋");
+        shop.setPhone("19988887777");
+        shop.setShopImg("没有图片");
+        shop.setLastEditTime(new Date());
+        shop.setEnableStatus(1);
+        shop.setAdvice("审核中");
+        shop.setShopId(2L);
+        int i = shopDao.updateShop(shop);
         assertEquals(1,i);
     }
 }
