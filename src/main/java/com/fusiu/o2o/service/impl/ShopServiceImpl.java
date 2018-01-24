@@ -16,7 +16,6 @@ import java.io.File;
 import java.util.Date;
 
 @Service
-@Component
 public class ShopServiceImpl implements ShopService{
 
     @Autowired
@@ -29,6 +28,7 @@ public class ShopServiceImpl implements ShopService{
         if (shop == null){
             return new ShopExecution(ShopStateEnum.CHECK.NULL_SHOP);
         }
+
         try{
             //给店铺信息赋初始值
             shop.setEnableStatus(0);
