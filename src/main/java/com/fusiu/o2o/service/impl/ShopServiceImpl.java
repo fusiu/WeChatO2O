@@ -9,12 +9,14 @@ import com.fusiu.o2o.service.ShopService;
 import com.fusiu.o2o.utils.ImageUtil;
 import com.fusiu.o2o.utils.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.Date;
 
 @Service
+@Component
 public class ShopServiceImpl implements ShopService{
 
     @Autowired
