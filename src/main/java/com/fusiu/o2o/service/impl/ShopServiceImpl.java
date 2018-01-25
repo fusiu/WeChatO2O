@@ -53,7 +53,6 @@ public class ShopServiceImpl implements ShopService{
                     if (i1 <= 0){
                         throw new ShopOperationException("更新图片地址失败");
                     }
-
                 }
             }
 

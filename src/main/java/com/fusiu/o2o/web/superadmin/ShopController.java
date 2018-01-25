@@ -1,29 +1,32 @@
-package com.fusiu.o2o.service;
+package com.fusiu.o2o.web.superadmin;
 
-import com.fusiu.o2o.BaseTest;
 import com.fusiu.o2o.dto.ShopExecution;
 import com.fusiu.o2o.entity.Area;
 import com.fusiu.o2o.entity.PersonInfo;
 import com.fusiu.o2o.entity.Shop;
 import com.fusiu.o2o.entity.ShopCategory;
 import com.fusiu.o2o.enums.ShopStateEnum;
+import com.fusiu.o2o.service.ShopService;
 import com.fusiu.o2o.service.impl.ShopServiceImpl;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-
-public class ShopServiceTest extends BaseTest{
+@RestController
+@RequestMapping("/shop")
+public class ShopController {
 
     @Autowired
     private ShopService shopService;
 
-    @Test
-    public void testAddShop(){
+
+    @GetMapping(value = "/shopinsert")
+    public String shopinsert(){
+
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
         Area area = new Area();
@@ -45,5 +48,7 @@ public class ShopServiceTest extends BaseTest{
         File shopImg = new File("/Users/fusiu/Downloads/image/xiaohuangren.jpg");
 
         ShopExecution shopExecution = shopService.addShop(shop, shopImg);
+
+        return shopExecution.toString()+"";
     }
 }
