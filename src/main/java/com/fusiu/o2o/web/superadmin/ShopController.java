@@ -49,6 +49,6 @@ public class ShopController {
 
         ShopExecution shopExecution = shopService.addShop(shop, shopImg);
 
-        return shopExecution.toString()+"";
+        return "Success";
     }
 }

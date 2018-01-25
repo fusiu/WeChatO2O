@@ -21,7 +21,9 @@ public class PathUtil {
         if (os.toLowerCase().startsWith("win")) {
             basePath = "D:/projectdev/image/";
 
-        } else {
+        }else if (os.toLowerCase().startsWith("mac")){
+            basePath = "/Users/fusiu/Documents/fusiu/WeChatO2O/image/";
+        }else {
             basePath = "/home/fusiu/WeChatO2O/image/";
 
         }
