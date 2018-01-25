@@ -16,7 +16,7 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
-public class ShopoServiceTest extends BaseTest{
+public class ShopServiceTest extends BaseTest{
 
     //@Autowired
     //private ShopService shopService;

@@ -58,6 +58,7 @@ public class ShopServiceImpl implements ShopService{
             }
 
         }catch (Exception e){
+            e.printStackTrace();
             throw new ShopOperationException("addShop error:"+e.getMessage());
         }
         return null;
