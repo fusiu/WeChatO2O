@@ -19,13 +19,12 @@ public class PathUtil {
         String os = System.getProperty("os.name");
         String basePath = "";
         if (os.toLowerCase().startsWith("win")) {
-            basePath = "D:/projectdev/image/";
+            basePath = "D:/projectdev/image";
 
         }else if (os.toLowerCase().startsWith("mac")){
-            basePath = "/Users/fusiu/Documents/fusiu/WeChatO2O/image/";
+            basePath = "/Users/fusiu/Documents/fusiu/WeChatO2O/image";
         }else {
-            basePath = "/home/fusiu/WeChatO2O/image/";
-
+            basePath = "/home/fusiu/WeChatO2O/image";
         }
         return basePath.replace("/",separator);
     }

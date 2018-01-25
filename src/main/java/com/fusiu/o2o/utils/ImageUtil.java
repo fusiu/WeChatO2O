@@ -47,9 +47,12 @@ public class ImageUtil {
         makeDirPath(targetAddr);
         String relativeAddr = String.format("%s%s%s", targetAddr, realFileName, extension);
         logger.debug("current relativeAddr is :"+relativeAddr);
+        //获取真正的绝对地址
         File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
         logger.debug("current complete addr is :"+PathUtil.getImgBasePath()+relativeAddr);
         try {
+            System.out.println("===================bashPath========================");
+            System.out.println(basePath);
             Thumbnails.of(thumbnail)
                     .size(200, 200)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(String.format("%s%s", basePath, "/watermark.jpg"))), 0.25f)
@@ -59,7 +62,7 @@ public class ImageUtil {
             logger.error(e.toString());
             e.printStackTrace();
         }
-        return relativeAddr;
+        return String.format("%s%s",PathUtil.getImgBasePath(),relativeAddr);
 
     }
 
