@@ -9,6 +9,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 
 public class ImageUtil {
@@ -37,13 +38,13 @@ public class ImageUtil {
     }
     /**
      * 处理缩略图，并返回新生成图片的绝对路径
-     * @param thumbnail 获取的文件名
+     * @param thumbnailInputStream 获取的文件名
      * @param targetAddr 子目录
      * @return 最终的图片保存路径
      */
-    public static String generateThumbnail(File thumbnail, String targetAddr) {
+    public static String generateThumbnail(InputStream thumbnailInputStream,String fileName, String targetAddr) {
         String realFileName = getRandomFileName();
-        String extension = getFileExtension(thumbnail);
+        String extension = getFileExtension(fileName);
         makeDirPath(targetAddr);
         String relativeAddr = String.format("%s%s%s", targetAddr, realFileName, extension);
         logger.debug("current relativeAddr is :"+relativeAddr);
@@ -53,7 +54,7 @@ public class ImageUtil {
         try {
             System.out.println("===================bashPath========================");
             System.out.println(basePath);
-            Thumbnails.of(thumbnail)
+            Thumbnails.of(thumbnailInputStream)
                     .size(200, 200)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(String.format("%s%s", basePath, "/watermark.jpg"))), 0.25f)
                     .outputQuality(0.8f)
@@ -79,11 +80,11 @@ public class ImageUtil {
 
     /**
      * 获取输入文件流的扩展名
-     * @param thumbnail 输入文件流
+     * @param fileName 输入文件流
      * @return 扩展名
      */
-    private static String getFileExtension(File thumbnail){
-        String originalFilename = thumbnail.getName();
+    private static String getFileExtension(String fileName){
+        String originalFilename = fileName;
         return originalFilename.substring(originalFilename.lastIndexOf("."));
     }
 

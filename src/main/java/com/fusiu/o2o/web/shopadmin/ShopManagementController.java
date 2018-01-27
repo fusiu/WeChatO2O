@@ -10,6 +10,7 @@ import com.fusiu.o2o.utils.HttpServletRequestUtil;
 import com.fusiu.o2o.utils.ImageUtil;
 import com.fusiu.o2o.utils.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,11 +22,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+
+@Controller
 @RequestMapping("/shopadmin")
 public class ShopManagementController {
 
     @Autowired
     private ShopService shopService;
+
     @RequestMapping(value = "/registershop",method = RequestMethod.POST)
     @ResponseBody
     private Map<String,Object> registerShop(HttpServletRequest request){
@@ -56,29 +60,21 @@ public class ShopManagementController {
         //2.注册店铺
         if (shop != null && shopImg != null){
             PersonInfo owner = new PersonInfo();
+            //sesseion TODO
             owner.setUserId(1l);
             shop.setOwner(owner);
-            File shopImgFile = new File(PathUtil.getImgBasePath()+ ImageUtil.getRandomFileName());
+            ShopExecution se = null;
             try {
-                shopImgFile.createNewFile();
+                se = shopService.addShop(shop,shopImg.getInputStream(),shopImg.getOriginalFilename());
+                if (se.getState() == ShopStateEnum.CHECK.getState()){
+                    modelMap.put("success",true);
+                }else {
+                    modelMap.put("success",false);
+                    modelMap.put("errMsg","请输入店铺信息");
+                }
             } catch (IOException e) {
                 modelMap.put("success",false);
-                modelMap.put("errMsg","上传图片不能为空");
-                return modelMap;
-            }
-            try {
-                inputStreamTofile(shopImg.getInputStream(),shopImgFile);
-            } catch (IOException e) {
-                modelMap.put("success",false);
-                modelMap.put("errMsg","上传图片不能为空");
-                return modelMap;
-            }
-            ShopExecution se = shopService.addShop(shop,shopImgFile);
-            if (se.getState() == ShopStateEnum.CHECK.getState()){
-                modelMap.put("success",true);
-            }else {
-                modelMap.put("success",false);
-                modelMap.put("errMsg","请输入店铺信息");
+                modelMap.put("errMsg",e.getMessage());
             }
             return modelMap;
         }else {
@@ -89,27 +85,27 @@ public class ShopManagementController {
         }
     }
 
-    private static void inputStreamTofile(InputStream ins, File file){
-        OutputStream os = null;
-        try{
-            os = new FileOutputStream(file);
-            int bytesRead = 0;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = ins.read(buffer)) != -1){
-                os.write(buffer,0,bytesRead);
-
-            }
-        }catch (Exception e){
-            throw new RuntimeException("调用 inputStreamFile 产生异常"+e.getMessage());
-        }finally {
-            try {
-                if (os != null) os.close();
-                if (ins != null) ins.close();
-
-            }catch (IOException e){
-                throw new RuntimeException("inputStreamFile 关闭 io 产生异常"+e.getMessage());
-
-            }
-        }
-    }
+//    private static void inputStreamTofile(InputStream ins, File file){
+//        OutputStream os = null;
+//        try{
+//            os = new FileOutputStream(file);
+//            int bytesRead = 0;
+//            byte[] buffer = new byte[1024];
+//            while ((bytesRead = ins.read(buffer)) != -1){
+//                os.write(buffer,0,bytesRead);
+//
+//            }
+//        }catch (Exception e){
+//            throw new RuntimeException("调用 inputStreamFile 产生异常"+e.getMessage());
+//        }finally {
+//            try {
+//                if (os != null) os.close();
+//                if (ins != null) ins.close();
+//
+//            }catch (IOException e){
+//                throw new RuntimeException("inputStreamFile 关闭 io 产生异常"+e.getMessage());
+//
+//            }
+//        }
+//    }
 }

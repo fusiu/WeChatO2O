@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.beans.Transient;
 import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 
 @Service
@@ -25,7 +26,7 @@ public class ShopServiceImpl implements ShopService{
 
     @Override
     @Transactional
-    public ShopExecution addShop(Shop shop, File shopImg) {
+    public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) {
 
         //判断 shop 是否为空
         if (shop == null){
@@ -43,10 +44,10 @@ public class ShopServiceImpl implements ShopService{
             if (i<=0){
                 throw new ShopOperationException("店铺创建失败");
             }else {
-                if (shopImg != null){
+                if (shopImgInputStream != null){
                     //存储图片
                     try{
-                        addShopImg(shop,shopImg);
+                        addShopImg(shop,shopImgInputStream,fileName);
                     }catch (Exception e){
                         throw new ShopOperationException("addShopImg erro:"+e.getMessage());
                     }
@@ -66,10 +67,10 @@ public class ShopServiceImpl implements ShopService{
         return null;
     }
 
-    private void addShopImg(Shop shop, File shopImg) {
+    private void addShopImg(Shop shop, InputStream shopImgInputStream,String fileName) {
         //获取 shop 图片目录的相对值路径
         String dest = PathUtil.getShopImagePath(shop.getShopId());
-        String s = ImageUtil.generateThumbnail(shopImg, dest);
+        String s = ImageUtil.generateThumbnail(shopImgInputStream,fileName,dest);
         shop.setShopImg(s);
     }
 }
