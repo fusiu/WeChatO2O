@@ -27,28 +27,6 @@ public class ShopController {
     @GetMapping(value = "/shopinsert")
     public String shopinsert(){
 
-        Shop shop = new Shop();
-        PersonInfo owner = new PersonInfo();
-        Area area = new Area();
-        ShopCategory shopCategory = new ShopCategory();
-
-        owner.setUserId(1L);
-        area.setAreaId(2);
-        shop.setOwner(owner);
-        shop.setArea(area);
-        shop.setShopCategory(shopCategory);
-        shop.setShopName("猛牛旗舰店");
-        shop.setShopDesc("累了困了，就喝猛牛合成奶");
-        shop.setShopAddr("E 栋");
-        shop.setPhone("19988887777");
-        shop.setCreateTime(new Date());
-        shop.setEnableStatus(ShopStateEnum.CHECK.getState());
-        shop.setAdvice("审核中");
-
-        File shopImg = new File("/Users/fusiu/Downloads/image/xiaohuangren.jpg");
-
-        ShopExecution shopExecution = shopService.addShop(shop, shopImg);
-
         return "Success";
     }
 }

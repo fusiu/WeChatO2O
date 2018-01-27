@@ -11,7 +11,9 @@ import com.fusiu.o2o.utils.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.beans.Transient;
 import java.io.File;
 import java.util.Date;
 
@@ -22,6 +24,7 @@ public class ShopServiceImpl implements ShopService{
     private ShopDao shopDao;
 
     @Override
+    @Transactional
     public ShopExecution addShop(Shop shop, File shopImg) {
 
         //判断 shop 是否为空
@@ -66,11 +69,7 @@ public class ShopServiceImpl implements ShopService{
     private void addShopImg(Shop shop, File shopImg) {
         //获取 shop 图片目录的相对值路径
         String dest = PathUtil.getShopImagePath(shop.getShopId());
-        System.out.println("=============== shopImagePath ========================");
-        System.out.println(dest);
         String s = ImageUtil.generateThumbnail(shopImg, dest);
-        System.out.println("=============== RealPath ========================");
-        System.out.println(s);
         shop.setShopImg(s);
     }
 }
