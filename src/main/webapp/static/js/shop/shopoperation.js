@@ -34,17 +34,17 @@ $(function(){
          */
         $('#submit').click(function () {
             var shop = {};
-            shop.shopName = $('#shop-name').val;
-            shop.shopAddr = $('#shop-addr').var;
-            shop.phone = $('#shop-phone').var;
-            shop.shopDesc = $('#shop-desc').var;
+            shop.shopName = $('#shop-name').val();
+            shop.shopAddr = $('#shop-addr').val();
+            shop.phone = $('#shop-phone').val();
+            shop.shopDesc = $('#shop-desc').val();
             shop.shopCategory = {
                 shopCategoryId : $('#shop-category').find('option').not(function(){
                     return !this.selected;
                 }).data('id')
             };
             shop.area = {
-                areaId : $('#area').find('option').not('option').not(function(){
+                areaId:$('#area').find('option').not(function(){
                     return !this.selected;
                 }).data('id')
             };
@@ -52,8 +52,8 @@ $(function(){
             var formData = new FormData();
             formData.append('shopImg',shopImg);
             formData.append('shopStr',JSON.stringify(shop));
-            var verifyCodeActual=$('#j_kaptcha').var;
-            if (!verifyCodeActual){
+            var verifyCodeActual=$('#j_kaptcha').val();
+            if (verifyCodeActual.length == 0){
                 $.toast('请输入验证码！');
                 return;
             }
@@ -74,7 +74,7 @@ $(function(){
                     /**
                      * 每次提交，无论成功还是失败都要刷新验证码
                      */
-                    $('kaptcha_img').click();
+                    $('#kaptcha_img').click();
                 }
 
             });
