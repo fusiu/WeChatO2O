@@ -13,10 +13,9 @@ public class CodeUtil {
                 Constants.KAPTCHA_SESSION_KEY
         );
         /**
-         * 获取输入的验证码
+         * 获取输入的验证码 verifyCodeActual
          */
         String verifyCodeActual = HttpServletRequestUtil.getString(request,"verifyCodeActual");
-
         if (verifyCodeActual == null || (!verifyCodeExpected.equals(verifyCodeActual))){
             return false;
         }

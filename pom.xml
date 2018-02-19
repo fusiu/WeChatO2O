@@ -32,6 +32,12 @@
             <version>1.2.3</version>
             <!--scope 默认为 compile-->
         </dependency>
+        <!-- 处理文件上传 -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.2</version>
+        </dependency>
 
         <!-- spring begin-->
         <!--(1) 包含 Spring 框架基本的核心工具类。Spring 其他组件都要使用到这个包中的类，是其他组件的基本核心-->

@@ -38,15 +38,16 @@ public class HttpServletRequestUtil {
     }
 
     public static String getString(HttpServletRequest request,String key){
+        String result = null;
         try {
-            String result = request.getParameter(key);
+            result = request.getParameter(key);
             if (request != null){
                 result = result.trim();
             }
             if ("".equals(result)){
                 result = null;
             }
-            return null;
+            return result;
         }catch (Exception e){
             return null;
         }

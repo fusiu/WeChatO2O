@@ -64,7 +64,7 @@ public class ShopServiceImpl implements ShopService{
             e.printStackTrace();
             throw new ShopOperationException("addShop error:"+e.getMessage());
         }
-        return null;
+        return new ShopExecution();
     }
 
     private void addShopImg(Shop shop, InputStream shopImgInputStream,String fileName) {

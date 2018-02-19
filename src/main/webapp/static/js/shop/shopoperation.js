@@ -53,31 +53,40 @@ $(function(){
             formData.append('shopImg',shopImg);
             formData.append('shopStr',JSON.stringify(shop));
             var verifyCodeActual=$('#j_kaptcha').val();
-            if (verifyCodeActual.length == 0){
+            if (!verifyCodeActual){
                 $.toast('请输入验证码！');
                 return;
             }
             formData.append('verifyCodeActual',verifyCodeActual);
+            /**
+             *TypeError: 'append' called on an object that does not implement interface FormData.
+             * 原因：将 processData 写成了 proceessData
+             */
             $.ajax({
                 url:registerShopUrl,
                 type:'POST',
                 data:formData,
                 contentType:false,
-                proceesData:false,
+                processData:false,
                 cache:false,
                 success:function(data){
                     if (data.success){
                         $.toast('提交成功！');
+                        registerShopUrl = "#";
+                        $('#submit').click(function () {
+                            $.toast('已经注册成功，请不要重复提交');
+                        })
                     }else{
                         $.toast('提交失败！'+data.errMsg);
                     }
                     /**
                      * 每次提交，无论成功还是失败都要刷新验证码
                      */
-                    $('#kaptcha_img').click();
+                    $('#kaptcha-img').click();
                 }
-
             });
+
         });
     }
+
 })

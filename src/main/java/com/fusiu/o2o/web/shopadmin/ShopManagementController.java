@@ -55,7 +55,6 @@ public class ShopManagementController {
             modelMap.put("shopCategoryList",shopCategoryList);
             modelMap.put("areaList",areaList);
             modelMap.put("success",true);
-
         }catch (Exception e){
             modelMap.put("success",false);
             modelMap.put("errMsg",e.getMessage());
@@ -68,13 +67,17 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String,Object> registerShop(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<>();
-        if (!CodeUtil.checkVerifyCode(request)){
+        /**
+         * 判断验证码是否正确，不正确就执行 if 语句体并且返回
+         */
+        Boolean checkVerifyCode = CodeUtil.checkVerifyCode(request);
+        if (!checkVerifyCode){
             modelMap.put("success",false);
             modelMap.put("errMsg","输入了错误的验证码");
             return modelMap;
         }
         //1.接收并转化相应的参数，包括店铺信息和图片信息
-        String shopstr = HttpServletRequestUtil.getString(request, "shopstr");
+        String shopstr = HttpServletRequestUtil.getString(request, "shopStr");
         ObjectMapper mapper  = new ObjectMapper();
         Shop shop = null;
         try{
@@ -118,9 +121,8 @@ public class ShopManagementController {
             return modelMap;
         }else {
             modelMap.put("success",false);
-            modelMap.put("errMsg","请输入店铺信息");
+            modelMap.put("errMsg","请正确填写店铺信息");
             return modelMap;
-
         }
     }
 
