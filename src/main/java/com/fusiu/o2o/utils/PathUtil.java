@@ -3,7 +3,7 @@ package com.fusiu.o2o.utils;
 public class PathUtil {
     /**
      * 不同的操作系统的文件分隔符不同，路径的书写格式也不同
-     * 因此需要获取操作系统的文件分隔符 swparator
+     * 因此需要获取操作系统的文件分隔符 separator
      */
     private static String separator = System.getProperty("file.separator");
 

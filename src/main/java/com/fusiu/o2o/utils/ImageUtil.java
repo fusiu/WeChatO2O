@@ -52,10 +52,8 @@ public class ImageUtil {
         File dest = new File(PathUtil.getImgBasePath() + relativeAddr);
         logger.debug("current complete addr is :"+PathUtil.getImgBasePath()+relativeAddr);
         try {
-            System.out.println("===================bashPath========================");
-            System.out.println(basePath);
             Thumbnails.of(thumbnailInputStream)
-                    .size(200, 200)
+                    .size(2000, 2000)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(String.format("%s%s", basePath, "/watermark.jpg"))), 0.25f)
                     .outputQuality(0.8f)
                     .toFile(dest);
@@ -68,12 +66,12 @@ public class ImageUtil {
     }
 
     /**
-     * 生成随机文件名，当前的毫秒数+5位随机数
+     * 生成随机文件名，当前的毫秒数+3位随机数
      * @return 随机文件名
      */
     public static String getRandomFileName(){
-        //获取随机的五位数
-        int rannum = random.nextInt(89999)+10000;
+        //获取随机的三位数
+        int rannum = random.nextInt(999);
         long nowTime = System.currentTimeMillis();
         return String.format("%s%s",rannum,nowTime);
     }
