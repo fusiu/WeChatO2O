@@ -25,34 +25,35 @@ public class ShopServiceImpl implements ShopService{
     private ShopDao shopDao;
 
     @Override
+//    @Transactional 是 SSM 中的处理事务的注解
     @Transactional
     public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) {
 
-        //判断 shop 是否为空
+//        判断 shop 是否为空
         if (shop == null){
-            return new ShopExecution(ShopStateEnum.CHECK.NULL_SHOP);
+            return new ShopExecution(ShopStateEnum.NULL_SHOP);
         }
 
         try{
-            //给店铺信息赋初始值
+//            给店铺信息赋初始值
             shop.setEnableStatus(0);
             shop.setCreateTime(new Date());
             shop.setLastEditTime(new Date());
-            //添加店铺信息
+//            添加店铺信息
             int i = shopDao.insertShop(shop);
 
             if (i<=0){
                 throw new ShopOperationException("店铺创建失败");
             }else {
                 if (shopImgInputStream != null){
-                    //存储图片
+//                    存储图片
                     try{
                         addShopImg(shop,shopImgInputStream,fileName);
                     }catch (Exception e){
                         throw new ShopOperationException("addShopImg erro:"+e.getMessage());
                     }
 
-                    //更新店铺的图片地址
+//                    更新店铺的图片地址
                     int i1 = shopDao.updateShop(shop);
                     if (i1 <= 0){
                         throw new ShopOperationException("更新图片地址失败");

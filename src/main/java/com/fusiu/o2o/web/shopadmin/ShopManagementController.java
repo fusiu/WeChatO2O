@@ -43,6 +43,10 @@ public class ShopManagementController {
     @Autowired
     private AreaService areaService;
 
+    /**
+     * 获取店铺信息
+     * @return modelMap
+     */
     @RequestMapping(value = "/getshopinitinfo",method = RequestMethod.GET)
     @ResponseBody
     private Map<String,Object> getShopInitInfo(){
@@ -63,11 +67,17 @@ public class ShopManagementController {
         return modelMap;
     }
 
+    /**
+     * 店铺注册
+     * @param request
+     * @return modelMap
+     */
     @RequestMapping(value = "/registershop",method = RequestMethod.POST)
     @ResponseBody
     private Map<String,Object> registerShop(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<>();
         /**
+         *
          * 判断验证码是否正确，不正确就执行 if 语句体并且返回
          */
         Boolean checkVerifyCode = CodeUtil.checkVerifyCode(request);
@@ -76,6 +86,7 @@ public class ShopManagementController {
             modelMap.put("errMsg","输入了错误的验证码");
             return modelMap;
         }
+
         //1.接收并转化相应的参数，包括店铺信息和图片信息
         String shopstr = HttpServletRequestUtil.getString(request, "shopStr");
         ObjectMapper mapper  = new ObjectMapper();
@@ -87,10 +98,13 @@ public class ShopManagementController {
             modelMap.put("errMsg",e.getMessage());
             return modelMap;
         }
+
+//        创建 CommonsMultipartResolver 对象，并且通过该对象获取 CommonsMultipartFile 对象
         CommonsMultipartFile shopImg = null;
         CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver(
                 request.getSession().getServletContext()
         );
+//        判断是否有文件上传，如果有，则获取 "shopImg" 对应的表单信息
         if (commonsMultipartResolver.isMultipart(request)){
             MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
             shopImg = (CommonsMultipartFile)multipartHttpServletRequest.getFile("shopImg");
@@ -99,10 +113,11 @@ public class ShopManagementController {
             modelMap.put("errMsg","上传图片不能为空");
             return modelMap;
         }
-        //2.注册店铺
+//        2.注册店铺
         if (shop != null && shopImg != null){
+//            获取店主信息：店主注册、登陆后，会在 session 中保存店主信息。此处使用测试的店主信息
             PersonInfo owner = new PersonInfo();
-            //sesseion TODO
+//           此处为测试用店主信息，写完用户注册和登陆后更改为 session 中保存的店主 TODO
             owner.setUserId(1l);
             shop.setOwner(owner);
             ShopExecution se = null;
